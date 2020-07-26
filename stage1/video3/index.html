@@ -6,7 +6,17 @@
   <link rel="stylesheet" href="css/main.css">
   <title>AJAX with JavaScript</title>
   <script>
- 
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if (request.readyState === 4) {
+        document.getElementById('ajax').innerHTML = request.responseText;
+      }
+    };
+    request.open('GET', 'sidebar.html');
+    function sendAJAX() {
+      request.send();
+      document.getElementById('load').style.display = 'none';
+    }
   </script>
 </head>
 <body>
@@ -16,6 +26,7 @@
         <div class="grid-100">
           <div class="heading">
             <h1>Bring on the AJAX</h1>
+            <button id='load' onclick='sendAJAX()'>Bring It!</button>
           </div>
           <ul id="ajax">
 
