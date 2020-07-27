@@ -20,3 +20,26 @@ xhr.onreadystatechange = function () {
 };
 xhr.open('GET', 'data/employees.json');
 xhr.send();
+
+const newxhr = new XMLHttpRequest();
+newxhr.onreadystatechange = function () {
+    if (newxhr.readyState === 4) {
+        const roomStatus = document.createElement('ul');
+        roomStatus.className = 'rooms';
+        const rooms = JSON.parse(newxhr.responseText);
+        const roomList = document.querySelector('#roomList');
+        roomList.appendChild(roomStatus);
+        for (let i = 0; i < rooms.length; i++) {
+            const newLi = document.createElement('li');
+            if (rooms[i].available === true) {
+                newLi.className = 'empty';
+            } else {
+                newLi.className = 'full';
+            }
+            newLi.textContent = `${rooms[i].room}`;
+            roomStatus.appendChild(newLi);
+        }
+    }
+};
+newxhr.open('GET', 'data/rooms.json');
+newxhr.send();
